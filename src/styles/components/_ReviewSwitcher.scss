@@ -1,0 +1,109 @@
+.reviews{
+    margin-bottom: 1rem;
+    &__total{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: .8rem;
+    }
+    &__toggle-view, &__indicators-view{
+        display: flex;
+        align-items: center;
+    }
+    &__toggle-view{
+        justify-content: flex-start;
+        width: 70%;                
+    }
+    &__indicators-view{
+        width: 30%;
+        justify-content: flex-end;
+    }
+    &__active, &__not-active{
+        border: none;
+        outline: none; 
+        padding: 0;
+        background-color: transparent; 
+        cursor: pointer;
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        margin-right: 2rem; 
+        text-align: left; 
+    }
+    &__active{
+        font-size: 1.6rem;
+        font-weight: 700;
+        color: black;
+    }
+    &__not-active{
+        font-size: 1.4rem;
+        text-decoration: underline;
+        color: #005c9f;
+    }
+    &__indicators_likes , &__indicators_comments{
+        position: relative;
+        font-size: 1.4rem; 
+        letter-spacing: -.1rem;
+        &::before{
+            position: absolute;
+            top: 0;
+            left: -2rem;
+            content: url('../assets/like.png');
+        }
+    }
+    &__indicators_likes{
+        &::before{
+            content: url('../assets/like.png');
+        }
+    }
+    &__indicators_comments{
+        margin-left: 4rem;
+        &::before{
+            content: url('../assets/comment.png');
+        }
+    }
+    &__list{
+
+    }
+    &__item{
+        padding: 1rem 0;
+    }
+    &__name{
+        font-size: 1.4rem;
+        font-weight: 700;
+        margin-bottom: 1.3rem;        
+    }
+    &__date{
+        font-size: 1.1rem;
+        color: $dark-grey-text;
+        font-weight: 400;
+        margin-left: 0.5rem;
+    }
+    &__text-box{
+        padding: 1.3rem;        
+        background-color: $review-background;
+        border: 1px solid $light-grey;
+        position: relative;
+        &:before, &:after {            
+            position: absolute;
+            bottom: 100%;            
+            content: '';
+        }
+        &:before{
+            border: 0.5rem solid;
+            border-color: transparent transparent $light-grey $light-grey;
+            left: 1.9rem;
+        }
+        &:after {
+            border: 0.4rem solid ;
+            border-color:  transparent transparent $review-background $review-background;
+            left: 2rem;
+        }
+    }
+    &__text{        
+        font-size: 1.4rem; 
+        line-height: 1.8rem;       
+        text-align: justify;
+    }
+}

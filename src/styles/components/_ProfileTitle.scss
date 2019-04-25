@@ -1,0 +1,41 @@
+.title{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    &__img-box{
+        border-radius: 50%; 
+        z-index: 10;       
+    }
+    &__img{
+        width: $profile-image-size;
+        height: $profile-image-size;        
+    }
+    &__description-box{
+        text-align: left;
+        padding-left: 1rem;
+        width: 100%;
+    }
+    &__name{
+        font-size: 1.6rem;
+        margin: .8rem 0;
+        font-weight: 700;
+        color: black;
+    }
+    &__position{
+        font-size: 1.2rem;
+        color: $dark-grey-text;
+        margin: .8rem 0;
+    }
+    &__summary{
+        font-size: 1.4rem;
+        line-height: 2rem;
+        background-color: $profile-light-yellow;
+        border: .1rem solid $light-grey;
+        padding: .8rem .8rem .8rem 7rem;
+        border-radius: 0.5rem; 
+        margin: .8rem 0 1rem -7rem;       
+        z-index: 0;
+    }
+    
+}

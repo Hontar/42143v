@@ -1,0 +1,52 @@
+.services{
+    margin-left: $profile-image-size;
+    margin-bottom: 1.3rem;
+    padding-left: 1rem;
+    padding-top: .3rem;
+    &__title{
+        text-align: end;
+        padding: 0 3rem 1rem 0;
+        border-bottom: 0.1rem solid $light-grey;
+        font-size: 1.3rem;
+    }
+    .services-list{
+        margin: 1.3rem 0;
+        border-left: .1rem solid black;
+        &__item-box{
+            display: flex;
+            justify-content: space-between;
+            padding-right: 3rem; 
+            margin-bottom: 0.3rem; 
+            position: relative; 
+            &_total{
+                border-top: 0.1rem solid $light-grey;
+                padding: 1.3rem 3rem 1.3rem 0; 
+            }                    
+        }
+        &__count-view, &__count-view_max{
+            height: 100%;
+            position: absolute;
+            left: 0;
+            z-index: 0;   
+            border-radius: 0 .4rem .4rem 0;         
+        }
+        &__count-view{
+            background-color: $profile-services-blue;
+            &_max{
+                background-color: $profile-services-green;
+            }
+        }
+        &__item-title, &__item-count{
+            line-height: 2.3rem;
+            font-size: 1.3rem; 
+            z-index: 10;           
+        }
+        &__item-count{
+            font-weight: 700;
+        }     
+        &__total-title,&__total-count{            
+            font-size: 1.6rem;
+            font-weight: 700;
+        }        
+    }
+}

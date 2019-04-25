@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {Component} from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import { connect } from 'react-redux';
+// import * as actions from "./components/actions/reviews";
+
+import {ProfileTitle} from "./components/ProfileTitle";
+import {ProfileServices} from "./components/ProfileServices";
+import ReviewSwitcher from "./components/ReviewSwitcher";
+import ReviewAddNew from "./components/ReviewAddNew";
+
+
+class App extends Component {
+  static defaultProps = {
+    getMessages: () => (console.log("getMessages isn't set"))
+  }
+
+  componentDidMount = () => {
+    this.props.getMessages()
+  }
+
+  render () {
+    console.log(this.props)
+    const {currentUserProfile, servicesTitle, services} = this.props;
+    return (
+      <div className="reviews-box">
+        <ProfileTitle currentUserProfile={currentUserProfile}  />
+        <ProfileServices servicesTitle={servicesTitle} 
+          services={services} />
+        <ReviewSwitcher />
+        <ReviewAddNew />
+      </div>
+    );
+  }  
 }
 
-export default App;
+const mapStateToProps = state => ({
+  currentUserProfile: state.currentUserProfile.currentProfile,
+  servicesTitle: state.currentUserProfile.services.servicesTitle,
+  services: state.currentUserProfile.services.services
+});
+
+// const mapDispatchToProps = {... actions};
+
+export default connect(mapStateToProps, null)(App);
