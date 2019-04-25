@@ -62,7 +62,13 @@
         &::before{
             content: url('../assets/comment.png');
         }
-    }   
+    } 
+    &__status-message{
+        font-size: 1rem;
+        color: $dark-grey-text;
+        text-align: center;
+        line-height: 1.3rem; 
+    }  
     &__item{
         padding: 1rem 0;
     }

@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
 import varyDateView from "../utils/varyDateView";
+import {comments} from "../utils/commentsMock";
 
 class ReviewSwitcher extends Component {
     static defaultProps = {
-        reviews: [],
+        reviews: [...comments],
         likes: 131,
         isFetching: false
     }
@@ -44,40 +45,44 @@ class ReviewSwitcher extends Component {
         const {reviews, likes, isFetching} = this.props;
         const {latestReviews} = this.state;
        
-        return ( isFetching 
-            ? 
-            <p>Loading</p> 
-            :
+        return ( 
             <div className="reviews" >
-                <div className="reviews__total" >
-                    <div className="reviews__toggle-view" >
-                        <button onClick={this.switchView} 
-                            disabled={latestReviews}
-                            className={latestReviews ? "reviews__active" : "reviews__not-active"} >
-                                Последние отзывы
-                        </button>
-                        <button onClick={this.switchView} 
-                            disabled={!latestReviews}
-                            className={latestReviews ? "reviews__not-active" : "reviews__active"} >
-                                Все отзывы
-                        </button>
-                    </div>
-                    <div className="reviews__indicators-view" >
-                        {likes > 0 && 
-                            <span className="reviews__indicators_likes" >
-                                {likes}
-                            </span>}
-                        {reviews && 
-                            <span className="reviews__indicators_comments" >
-                                {reviews.length}
-                            </span>}
-                    </div>
-                </div>
-                <div className="reviews__list">
-                    {reviews 
-                        ? this.renderCommentsList()
-                        : "Отзывов пока нет"}
-                </div>
+                {isFetching 
+                    ? 
+                    <p className="reviews__status-message" >
+                        Loading...
+                    </p> 
+                    : <>
+                        <div className="reviews__total" >
+                            <div className="reviews__toggle-view" >
+                                <button onClick={this.switchView} 
+                                    disabled={latestReviews}
+                                    className={latestReviews ? "reviews__active" : "reviews__not-active"} >
+                                        Последние отзывы
+                                </button>
+                                <button onClick={this.switchView} 
+                                    disabled={!latestReviews}
+                                    className={latestReviews ? "reviews__not-active" : "reviews__active"} >
+                                        Все отзывы
+                                </button>
+                            </div>
+                            <div className="reviews__indicators-view" >
+                                {likes > 0 && 
+                                    <span className="reviews__indicators_likes" >
+                                        {likes}
+                                    </span>}
+                                {reviews && 
+                                    <span className="reviews__indicators_comments" >
+                                        {reviews.length}
+                                    </span>}
+                            </div>
+                        </div>
+                        <div className="reviews__list">
+                            {reviews 
+                                ? this.renderCommentsList()
+                                : "Отзывов пока нет"}
+                        </div>
+                    </>}
             </div>
         )
     }

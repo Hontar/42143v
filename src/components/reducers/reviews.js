@@ -1,5 +1,6 @@
 import initialState from "../store/initialState";
 import * as types from "../actions/reviews";
+import {comments} from "../../utils/commentsMock"; // mock
 
 export default (state = initialState.reviews, { type, payload, status }) => {
   switch (type) {
@@ -10,7 +11,9 @@ export default (state = initialState.reviews, { type, payload, status }) => {
         return { ...state, comments: payload, isFetching: false };
     }
     case types.REVIEWS_REQUEST_FAIL: {        
-        return { ...state, error: true, isFetching: false };
+        return { ...state, error: true, isFetching: false,
+            comments: [...comments] // mock
+        };
     }
 
     case types.ADD_REVIEWS_REQUEST: {        
