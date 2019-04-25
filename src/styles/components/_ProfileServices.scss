@@ -41,6 +41,9 @@
             font-size: 1.3rem; 
             z-index: 10;           
         }
+        &__item-title{
+            padding-left: .8rem;
+        }
         &__item-count{
             font-weight: 700;
         }     
@@ -48,5 +51,12 @@
             font-size: 1.6rem;
             font-weight: 700;
         }        
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .services{
+        margin-left: 0;
+        padding-left: 0;
     }
 }

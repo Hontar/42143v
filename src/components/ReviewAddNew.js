@@ -53,7 +53,8 @@ class ReviewAddNew extends Component {
                     className="reviews__input" 
                     rows="4" 
                     value = {this.state.text} 
-                    onKeyUp={this.handleInput}
+                    onKeyDown={this.handleInput}
+                    maxlength="500"
                     />
                 <button onClick={this.saveReview} 
                     disabled={isFetchingComment || isFetching ? true : false} 

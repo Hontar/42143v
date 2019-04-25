@@ -54,7 +54,7 @@ class App extends Component {
     return (
       <div className="reviews-box">
         <ProfileTitle currentUserProfile={currentProfile}  />
-        <ProfileServices servicesTitle={servicesTitle} 
+        <ProfileServices servicesTitle={services.servicesTitle} 
           services={services.servicesList} />
         <ReviewSwitcher />
         <ReviewAddNew />
@@ -62,10 +62,6 @@ class App extends Component {
     );
   }  
 }
-
-// const mapStateToProps = state => ({
-//   currentUserProfile: state.currentUserProfile
-// });
 
 const mapDispatchToProps = {...actions};
 
