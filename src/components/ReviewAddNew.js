@@ -1,36 +1,64 @@
 import React, {Component} from "react";
 import { connect } from 'react-redux';
-// import * as actions from "./actions";
+import * as actions from "./actions/reviews";
 
 class ReviewAddNew extends Component {
     static defaultProps = {
-        addReview: () => (console.log("addReview isn't set"))
+        addReview: () => (console.log("addReview isn't set")),
+        userName: "Юзер Юзер", // mock
+        isFetching: false,
+        isFetchingComment: false,
+        errorAddComment: false
     }
+
     state = {
         text: ""
     }
 
     handleInput = (e) => {
-        this.setState({text: e.target.value})
+        if (e.ctrlKey && e.key === 'Enter' ){
+            this.saveReview()
+        } else {
+            let safeValue = e.target.value.split("<").join("&lt")
+            this.setState({text: safeValue})
+        }        
     }
 
     saveReview = () => {
         const {addReview, userName} = this.props;
+        if(!this.state.text.trim()) return;
         addReview({
             name: userName,
             time: new Date().getTime(),
-            text: this.state.text
-        })
+            text: this.state.text.trim()
+        })        
+    }
+
+    componentDidUpdate(prevProps){
+        if(prevProps.status === 'PENDING' && this.props.status === 'RESOLVED' && this.state.text){
+            this.setState({text: ''})
+        }
     }
 
     render() {
-        const {isFetching} = this.props
+        const {isFetching, isFetchingComment, errorAddComment} = this.props;        
         return(
             <div className="reviews__add" >
-                <textarea onChange={this.handleInput} className="reviews__input" rows="4" />
+                {errorAddComment && 
+                    <span className="reviews__error"> 
+                        Что-то пошло не так. Попробуйте еще раз
+                    </span> }
+                <textarea 
+                    onChange={this.handleInput} 
+                    className="reviews__input" 
+                    rows="4" 
+                    value = {this.state.text} 
+                    onKeyUp={this.handleInput}
+                    />
                 <button onClick={this.saveReview} 
-                    disabled={isFetching ? true : false} className="reviews__button"  >
-                    Написать консультанту
+                    disabled={isFetchingComment || isFetching ? true : false} 
+                    className="reviews__button"  >
+                        Написать консультанту
                 </button>
             </div>
         )
@@ -38,10 +66,12 @@ class ReviewAddNew extends Component {
 };
 
 const mapStateToProps = state => ({
+    isFetchingComment: state.reviews.isFetchingComment,
     isFetching: state.reviews.isFetching,
-    userName: state.auth.userName
+    errorAddComment: state.reviews.errorAddComment,
+    status: state.reviews.status
 });
 
-// const mapDispatchToProps = {... actions};
+const mapDispatchToProps = {...actions};
 
-export default connect(mapStateToProps, null)(ReviewAddNew);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewAddNew);

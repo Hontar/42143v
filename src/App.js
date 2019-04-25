@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
 import './App.css';
 
+import avatar from "./assets/avatar.png"; // import because no requests for currentProfile
+
 import { connect } from 'react-redux';
-// import * as actions from "./components/actions/reviews";
+import * as actions from "./components/actions/reviews";
 
 import {ProfileTitle} from "./components/ProfileTitle";
 import {ProfileServices} from "./components/ProfileServices";
@@ -12,21 +14,48 @@ import ReviewAddNew from "./components/ReviewAddNew";
 
 class App extends Component {
   static defaultProps = {
-    getMessages: () => (console.log("getMessages isn't set"))
+    getReviews: () => (console.log("getReviews isn't set")),
+    currentUserProfile: {
+      currentProfile: {
+        userAvatar:{
+          src: avatar,
+          alt: "Вероника Ростова"
+        }, 
+        userName: "Вероника Ростова", 
+        userPosition: "Менеджер по продажам", 
+        userSummary: "Подберу для вас самые лучшие предложения. Мои услуги абсолютно бесплатны"
+      },
+      services: {
+        servicesTitle: "Услуг",
+        servicesList: [
+          {
+            title: "Ручное бронирование",
+            count: 11,
+          },
+          {
+            title: "Пакетные туры",
+            count: 3,
+          },
+          {
+            title: "Отели",
+            count: 1,
+          }
+        ]
+      }
+    }
   }
 
   componentDidMount = () => {
-    this.props.getMessages()
+    this.props.getReviews()
   }
 
   render () {
-    console.log(this.props)
-    const {currentUserProfile, servicesTitle, services} = this.props;
+    const {currentProfile, servicesTitle, services} = this.props.currentUserProfile;
     return (
       <div className="reviews-box">
-        <ProfileTitle currentUserProfile={currentUserProfile}  />
+        <ProfileTitle currentUserProfile={currentProfile}  />
         <ProfileServices servicesTitle={servicesTitle} 
-          services={services} />
+          services={services.servicesList} />
         <ReviewSwitcher />
         <ReviewAddNew />
       </div>
@@ -34,12 +63,10 @@ class App extends Component {
   }  
 }
 
-const mapStateToProps = state => ({
-  currentUserProfile: state.currentUserProfile.currentProfile,
-  servicesTitle: state.currentUserProfile.services.servicesTitle,
-  services: state.currentUserProfile.services.services
-});
+// const mapStateToProps = state => ({
+//   currentUserProfile: state.currentUserProfile
+// });
 
-// const mapDispatchToProps = {... actions};
+const mapDispatchToProps = {...actions};
 
-export default connect(mapStateToProps, null)(App);
+export default connect(null, mapDispatchToProps)(App);

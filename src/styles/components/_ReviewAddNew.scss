@@ -5,14 +5,23 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 3rem 2rem 2rem 2rem;
+        padding: 2rem;
         height: 100%;
         flex-grow: 1;
     }
     &__input{
         resize: none;
         width: 100%;
+        margin-top: 1rem;
         margin-bottom: 2.6rem;
+        font-size: 1.4rem; 
+        line-height: 1.8rem;       
+        text-align: justify;
+    }
+    &__error{
+        font-size: 1rem;
+        color: $dark-grey-text;
+        margin-bottom: -1rem; 
     }
     &__button{
         font-size: 1.6rem;

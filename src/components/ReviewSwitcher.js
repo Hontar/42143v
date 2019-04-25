@@ -3,6 +3,12 @@ import { connect } from 'react-redux';
 import varyDateView from "../utils/varyDateView";
 
 class ReviewSwitcher extends Component {
+    static defaultProps = {
+        reviews: [],
+        likes: 131,
+        isFetching: false
+    }
+
     state = {
         latestReviews: true
     }
@@ -11,25 +17,37 @@ class ReviewSwitcher extends Component {
         this.setState(prevState => ({latestReviews: !prevState.latestReviews}))
     }
 
-    render () {
-        const {reviews, likes} = this.props;
-        const {latestReviews} = this.state
-        const message = (msg) => (<div className="reviews__item" key={msg.time + Math.random()*10} >
-                                    <p className="reviews__name" >
-                                        {msg.name}
-                                        <span className="reviews__date" >
-                                            {varyDateView(msg.time)}
-                                        </span> 
+    renderComment = (msg) => (<div className="reviews__item" key={msg.time + Math.random()*10} >
+                                <p className="reviews__name" >
+                                    {msg.name}
+                                    <span className="reviews__date" >
+                                        {varyDateView(msg.time)}
+                                    </span> 
+                                </p>
+                                <div className="reviews__text-box">
+                                    <p className="reviews__text" >
+                                        {msg.text}
                                     </p>
-                                    <div className="reviews__text-box">
-                                        <p className="reviews__text" >
-                                            {msg.text}
-                                        </p>
-                                    </div>
-                                </div>);
-        const reviewsList = latestReviews ? reviews.slice(reviews.length - 3).map( msg => (
-                            message(msg))) : reviews.map( msg => (message(msg)));
-        return(
+                                </div>
+                            </div>)
+    renderCommentsList = () => {
+        const {reviews} = this.props;
+        const {latestReviews} = this.state;
+        return (
+            latestReviews 
+                ? reviews.slice(reviews.length - 3).map( msg => (this.renderComment(msg))) 
+                : reviews.map( msg => (this.renderComment(msg)))
+        )
+    }
+
+    render () {
+        const {reviews, likes, isFetching} = this.props;
+        const {latestReviews} = this.state;
+       
+        return ( isFetching 
+            ? 
+            <p>Loading</p> 
+            :
             <div className="reviews" >
                 <div className="reviews__total" >
                     <div className="reviews__toggle-view" >
@@ -45,7 +63,7 @@ class ReviewSwitcher extends Component {
                         </button>
                     </div>
                     <div className="reviews__indicators-view" >
-                        {likes && 
+                        {likes > 0 && 
                             <span className="reviews__indicators_likes" >
                                 {likes}
                             </span>}
@@ -56,7 +74,9 @@ class ReviewSwitcher extends Component {
                     </div>
                 </div>
                 <div className="reviews__list">
-                    {reviews ? reviewsList : "Отзывов пока нет"}
+                    {reviews 
+                        ? this.renderCommentsList()
+                        : "Отзывов пока нет"}
                 </div>
             </div>
         )
@@ -64,8 +84,8 @@ class ReviewSwitcher extends Component {
 }
 
 const mapStateToProps = state => ({
-    reviews: state.reviews.comments,
-    likes: state.reviews.likes    
+    isFetching: state.reviews.isFetching,
+    reviews: state.reviews.comments
 });
 
 export default connect(mapStateToProps, null)(ReviewSwitcher);
