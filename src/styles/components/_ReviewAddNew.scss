@@ -18,8 +18,12 @@
         line-height: 1.8rem;       
         text-align: justify;
         outline: none;
+        outline-color: invert;
         font-family: 'Arial', sans-serif;
-        padding: 1.3rem;
+        padding: 1.3rem; 
+        &:focus{
+            outline: none;
+        }       
     }
     &__error{
         font-size: 1rem;

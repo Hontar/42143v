@@ -1,3 +1,5 @@
+const dataUrl = `http://localhost:3000/comments`;
+
 export const REVIEWS_REQUEST = "REVIEWS_REQUEST";
 export const REVIEWS_REQUEST_SUCCESS = "REVIEWS_REQUEST_SUCCESS";
 export const REVIEWS_REQUEST_FAIL = "REVIEWS_REQUEST_FAIL";
@@ -19,7 +21,7 @@ const reviewsRequestFail = error => ({
 export const getReviews = () => async dispatch => {
     dispatch(reviewsRequest());
     try {
-      const comments = await fetch(`http://localhost:3000/comments`)
+      const comments = await fetch(dataUrl)
       .then(resp => resp.json())
           .then(data => data); 
       dispatch(reviewsRequestSuccess(comments));
@@ -52,7 +54,7 @@ const addReviewsRequestFail = error => ({
 export const addReview = (payload) => async dispatch => {
     dispatch(addReviewsRequest());
     try {
-        const comments = await fetch(`http://localhost:3000/comments`,{
+        const comments = await fetch(dataUrl,{
             method: "POST",
             body: JSON.stringify(payload),
             headers: {
