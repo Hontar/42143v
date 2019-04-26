@@ -1,3 +1,8 @@
+Project is published at https://hontar.github.io/42143v/
+
+JSON-server is used as fake REST API. 
+https://github.com/typicode/json-server
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
