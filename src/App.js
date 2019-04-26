@@ -50,7 +50,7 @@ class App extends Component {
   }
 
   render () {
-    const {currentProfile, servicesTitle, services} = this.props.currentUserProfile;
+    const {currentProfile, services} = this.props.currentUserProfile;
     return (
       <div className="reviews-box">
         <ProfileTitle currentUserProfile={currentProfile}  />

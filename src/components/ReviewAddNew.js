@@ -18,9 +18,8 @@ class ReviewAddNew extends Component {
     handleInput = (e) => {
         if (e.ctrlKey && e.key === 'Enter' ){
             this.saveReview()
-        } else {
-            let safeValue = e.target.value.split("<").join("&lt")
-            this.setState({text: safeValue})
+        } else {           
+            this.setState({text: e.target.value})
         }        
     }
 
@@ -30,7 +29,7 @@ class ReviewAddNew extends Component {
         addReview({
             name: userName,
             time: new Date().getTime(),
-            text: this.state.text.trim()
+            text: this.state.text.trim().split("<").join("&lt")
         })        
     }
 
@@ -54,7 +53,7 @@ class ReviewAddNew extends Component {
                     rows="4" 
                     value = {this.state.text} 
                     onKeyDown={this.handleInput}
-                    maxlength="500"
+                    maxLength="500"
                     />
                 <button onClick={this.saveReview} 
                     disabled={isFetchingComment || isFetching ? true : false} 

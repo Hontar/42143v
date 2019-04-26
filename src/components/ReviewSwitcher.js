@@ -27,7 +27,7 @@ class ReviewSwitcher extends Component {
                                 </p>
                                 <div className="reviews__text-box">
                                     <p className="reviews__text" >
-                                        {msg.text}
+                                        {msg.text.split("&lt").join("<")}
                                     </p>
                                 </div>
                             </div>)
